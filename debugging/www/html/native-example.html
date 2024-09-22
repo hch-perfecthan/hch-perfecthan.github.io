@@ -775,7 +775,7 @@ Native.app.webViewer('https://m.daum.net');
                     <button class="btn" onclick="runFunction('onVLCPlayer')">실행</button>
                 </div>
                 <pre id="onVLCPlayer" class="source-code" style="display: none;">
-/* VLC 플레이어 열기 예시 */
+/* VLC 플레이어 열기 (RTSP 재생) 예시 */
 Native.app.vlcPlayer('http://streams.videolan.org/streams/mp4/Mr_MrsSmith-h264_aac.mp4');
                 </pre>
                 <p><!--<button class="run-btn" onclick="runFunction('onVLCPlayer')">실행</button>--></p>
@@ -814,13 +814,13 @@ Native.app.back(); // 또는 Native.app.close();
             </li>
             <li style="padding-top: 30px;">
                 <strong>Native.app.fileViewer 함수</strong>
-                <p>파일 경로/URL 열기 함수 (미리보기)</p>
+                <p>파일 경로/URL 뷰어 함수 (미리보기)</p>
                 <div class="buttons">
                     <button class="btn" onclick="toggleSource('onFileViewer')">소스 보기</button>
                     <button class="btn" onclick="runFunction('onFileViewer')">실행</button>
                 </div>
                 <pre id="onFileViewer" class="source-code" style="display: none;">
-/* 파일 경로/URL 열기 예시 */
+/* 파일 경로/URL 뷰어 예시 */
 let url = 'https://developer.apple.com/ibeacon/Getting-Started-with-iBeacon.pdf';
 Native.app.fileViewer(url, function() {
     console.log('파일 뷰어 종료');
@@ -844,13 +844,13 @@ Native.app.linkShare(url);
             </li>
             <li style="padding-top: 30px;">
                 <strong>Native.app.launch 함수</strong>
-                <p>앱 실행 또는 스토어 이동 함수</p>
+                <p>앱 실행 (미설치 시 앱 스토어 이동) 함수</p>
                 <div class="buttons">
                     <button class="btn" onclick="toggleSource('onLaunch')">소스 보기</button>
                     <button class="btn" onclick="runFunction('onLaunch')">실행</button>
                 </div>
                 <pre id="onLaunch" class="source-code" style="display: none;">
-/* 앱 실행 또는 스토어 이동 예시 */
+/* 앱 실행 (미설치 시 앱 스토어 이동) 예시 */
 var userAgent = navigator.userAgent.toLowerCase();
 let options = {
     scheme: null,
@@ -941,7 +941,7 @@ Native.app.refreshToken(function(token) {
                     <button class="btn" onclick="runFunction('onLogout')">실행</button>
                 </div>
                 <pre id="onLogout" class="source-code" style="display: none;">
-/* 로그아웃 함수 (상태바 푸시 알림 삭제, 푸시 토큰 삭제 및 재발급) 예시 */
+/* 로그아웃 (상태바 푸시 알림 삭제, 푸시 토큰 삭제 및 재발급) 예시 */
 Native.ui.showLoading();
 // 로그아웃 시 푸시를 받지 않도록 하기 위한 처리 (재로그인 시 DB 푸시 토큰 업데이트 필요)
 Native.app.logout(function(token) {
@@ -1186,6 +1186,18 @@ Native.location.finish();
     -->
     <script type='text/javascript' src='../js/native-example.js' charset='utf-8'></script>
     <script>
+        $(function() {
+            if (/Native/i.test(navigator.userAgent)) {
+            } else {
+                $('.buttons').hide();
+                $('.source-code').show();
+                if (history.referrer) {
+                } else {
+                    $('.cta-section > button').eq(0).hide();
+                }
+            }
+        });
+
         // 소스 보기 토글 함수
         function toggleSource(id) {
             const sourceCode = document.getElementById(id);

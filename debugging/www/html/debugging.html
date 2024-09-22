@@ -145,5 +145,23 @@
         <p>&copy; 2024 웹뷰 디버깅 방법. All rights reserved.</p>
     </footer>
     -->
+
+    <script type='text/javascript' src='../js/libs/jquery-3.6.0.min.js' charset='utf-8'></script>
+    <!--
+    <script type='text/javascript' src='../js/common/common.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/native/native-api.js' charset='utf-8'></script>
+    -->
+    <script type='text/javascript' src='../js/native-example.js' charset='utf-8'></script>
+    <script>
+        $(function() {
+            if (/Native/i.test(navigator.userAgent)) {
+            } else {
+                if (history.referrer) {
+                } else {
+                    $('.cta-section > button').eq(0).hide();
+                }
+            }
+        });
+    </script>
 </body>
 </html>

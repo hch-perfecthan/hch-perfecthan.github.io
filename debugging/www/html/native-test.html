@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>네이티브 연동 샘플</title>
+		
+		<meta charset="utf-8" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, user-scalable=no" />
+		
+        <meta name="theme-color" content="rgb(255,255,255)" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    </head>
+    <body>
+        <br />
+        <br />
+        <h1>네이티브 연동 샘플</h1>
+        <hr />
+        <!-- 화면 설정 관련 -->
+        <a href="javascript:onFullScreen();"><h3>전체 화면 설정/해제 (3초 후 해제)</h3></a>
+        <a href="javascript:onShowWebControl();"><h3>주소창/하단탭 숨기기/보이기 (3초 후 보이기)</h3></a>
+
+        <!-- 정보 조회 관련 -->
+        <a href="javascript:onDeviceInfo();"><h3>디바이스 정보 조회</h3></a>
+        <a href="javascript:onAppInfo();"><h3>앱 정보 조회</h3></a>
+
+        <!-- 권한 관련 -->
+        <a href="javascript:onCheckPermission();"><h3>푸시 알림 권한 체크</h3></a>
+        <a href="javascript:onPermissionSettings('notification');"><h3>푸시 알림 권한 설정 화면으로 이동</h3></a>
+
+        <!-- Preferences 관련 -->
+        <a href="javascript:onString();"><h3>문자열 저장하기/가져오기</h3></a>
+
+        <!-- 네이티브 UI 관련 -->
+        <a href="javascript:onShowSplash();"><h3>스플래시 보이기/숨기기 (3초 후 숨기기)</h3></a>
+        <a href="javascript:onShowLoading();"><h3>로딩 띄우기/숨기기 (3초 후 숨기기)</h3></a>
+        <a href="javascript:onPullToRefresh();"><h3>Pull to refresh 활성화/비활성화 (3초 후 비활성화)</h3></a>
+        <a href="javascript:onShowAlert();"><h3>알림창 띄우기 (제목, 버튼명 변경을 위해)</h3></a>
+        <a href="javascript:onShowConfirm();"><h3>확인창 띄우기 (제목, 버튼명 변경을 위해)</h3></a>
+        <a href="javascript:onShowPrompt();"><h3>프롬프트창 띄우기 (제목, 버튼명 변경을 위해)</h3></a>
+        <a href="javascript:onShowToast();"><h3>토스트 띄우기</h3></a>
+        <a href="javascript:onHideKeyboard();"><h3>키보드 내리기</h3></a>
+
+        <!-- 네트워크 통신 관련 -->
+        <a href="javascript:onAjax();"><h3>네트워크 통신 요청</h3></a>
+        <a href="javascript:onFileDownload();"><h3>파일 다운로드 후 미리보기/공유</h3></a>
+
+        <!-- 앱 관련 -->
+        <a href="javascript:onWebBrowser();"><h3>외부 웹브라우저 열기</h3></a>
+        <a href="javascript:onAppBrowser();"><h3>내부 웹브라우저 열기</h3></a>
+        <a href="javascript:onWebViewer();"><h3>서브 웹뷰 열기</h3></a>
+        <a href="javascript:onVLCPlayer();"><h3>VLC 플레이어 열기 (RTSP 재생)</h3></a>
+        <a href="javascript:onMain();"><h3>메인 화면으로 이동</h3></a>
+        <a href="javascript:onClose();"><h3>현재 화면 종료</h3></a>
+        <a href="javascript:onFileViewer();"><h3>파일 경로/URL 뷰어</h3></a>
+        <a href="javascript:onLinkShare();"><h3>링크 URL 공유</h3></a>
+        <a href="javascript:onLaunch();"><h3>앱 실행 (미설치 시 앱 스토어 이동)</h3></a>
+        <a href="javascript:onOrientation();"><h3>화면 회전 (5초 후 복원)</h3></a>
+        <a href="javascript:onRemoveCookies();"><h3>쿠키 삭제 (모든 쿠키, 도메인 쿠키, 특정 쿠키)</h3></a>
+        <a href="javascript:onRefreshToken();"><h3>푸시 토큰 삭제 후 재발급</h3></a>
+        <a href="javascript:onLogout();"><h3>로그아웃 (상태바 푸시 알림 삭제, 푸시 토큰 삭제 후 재발급)</h3></a>
+        <a href="javascript:onFinish();"><h3>앱 종료</h3></a>
+
+        <!-- 바코드 관련 -->
+        <a href="javascript:onBarcodeScanner();"><h3>바코드 스캔 (범용, QR)</h3></a>
+
+        <!-- 위치 관련 -->
+        <a href="javascript:onGPSEnabled();"><h3>GPS ON/OFF 체크</h3></a>
+        <a href="javascript:onGPSSettings();"><h3>GPS 설정 화면으로 이동</h3></a>
+        <a href="javascript:onMyLocation();"><h3>내 위치 정보 조회 (반복적)</h3></a>
+        <a href="javascript:onLocationCalculate();"><h3>GPS 두 좌표 간 방위/거리 계산</h3></a>
+        <a href="javascript:onLocationFinish();"><h3>내 위치 정보 조회 종료</h3></a>
+
+        <!-- 스키마 호출 테스트 -->
+        <a href="javascript:onSchemaUrl();"><h3>스키마 호출 테스트</h3></a>
+
+		<!-- script -->
+        <script type='text/javascript' src='../js/libs/jquery-3.6.0.min.js' charset='utf-8'></script>
+        <!--
+		<script type='text/javascript' src='../js/common/common.js' charset='utf-8'></script>
+        <script type='text/javascript' src='../js/native/native-api.js' charset='utf-8'></script>
+        -->
+        <script type='text/javascript' src='../js/native-test.js' charset='utf-8'></script>
+		<!-- //script -->
+		
+    </body>
+    
+</html>

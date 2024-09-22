@@ -162,7 +162,7 @@
 
     <section class="cta-section" style="padding-bottom: 20px">
         <button onclick="history.back();">뒤로 가기</button>
-        <button onclick="onNext()">네이티브 연동 샘플</button>
+        <button onclick="onNext();">네이티브 연동 샘플</button>
     </section>
 
     <!--
@@ -170,13 +170,32 @@
         <p>&copy; 2024 하이브리드 앱 솔루션. All rights reserved.</p>
     </footer>
     -->
+
+    <script type='text/javascript' src='../js/libs/jquery-3.6.0.min.js' charset='utf-8'></script>
+    <!--
+    <script type='text/javascript' src='../js/common/common.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/native/native-api.js' charset='utf-8'></script>
+    -->
+    <script type='text/javascript' src='../js/native-example.js' charset='utf-8'></script>
     <script>
+        $(function() {
+            if (/Native/i.test(navigator.userAgent)) {
+            } else {
+                if (history.referrer) {
+                } else {
+                    $('.cta-section > button').eq(0).hide();
+                }
+            }
+        });
+
         function onNext() {
+            /*
             if (/Native/i.test(navigator.userAgent)) {
                 Native.app.webViewer('https://hch-perfecthan.github.io/debugging/www/html/native-example.html');
             } else {
-                location.href = './native-example.html'
-            }
+                location.href = './native-example.html';
+            }*/
+            location.href = 'https://hch-perfecthan.github.io/debugging/www/html/native-example.html';//'./native-example.html';
         }
     </script>
 </body>

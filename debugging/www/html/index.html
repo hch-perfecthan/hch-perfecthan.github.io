@@ -147,8 +147,8 @@
     </section>
 
     <section class="cta-section" style="padding-bottom: 20px">
-        <button onclick="location.href='./debugging.html'">웹뷰 디버깅 방법</button>
-        <button onclick="location.href='./solution.html'">솔루션 소개</button>
+        <button onclick="onNext1();">웹뷰 디버깅 방법</button>
+        <button onclick="onNext2();">솔루션 소개</button>
     </section>
 
     <!--
@@ -156,5 +156,21 @@
         <p>&copy; 2024 웹뷰 디버깅/테스트 앱. All rights reserved.</p>
     </footer>
     -->
+
+    <script type='text/javascript' src='../js/libs/jquery-3.6.0.min.js' charset='utf-8'></script>
+    <!--
+    <script type='text/javascript' src='../js/common/common.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/native/native-api.js' charset='utf-8'></script>
+    -->
+    <script type='text/javascript' src='../js/native-example.js' charset='utf-8'></script>
+    <script>
+        function onNext1() {
+            location.href = './debugging.html';
+        }
+
+        function onNext2() {
+            location.href = './solution.html';
+        }
+    </script>
 </body>
 </html>
