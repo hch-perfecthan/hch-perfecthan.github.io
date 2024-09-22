@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>네이티브 연동 샘플</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        header {
+            /*background-color: #4CAF50;*/
+            color: #4CAF50;
+            padding: 20px;
+            padding-top: 60px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+
+        .intro-section {
+            padding: 20px;
+            padding-top: 0px;
+            text-align: center;
+        }
+
+        .intro-section p {
+            font-size: 1em;
+            margin-bottom: 20px;
+        }
+
+        .function-section {
+            margin: 20px auto;
+            margin-top: 0px;
+            width: 80%;
+            max-width: 900px;
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            flex-grow: 1; /* 화면이 푸터를 밀어내지 않도록 flex-grow로 영역 차지 */
+            /* overflow-y: auto; 화면이 작아질 때 스크롤 가능하게 함 */
+        }
+
+        h2 {
+            color: #4CAF50;
+            margin-top: 20px;
+            margin-bottom: 0px;
+            font-size: 1.8em;
+        }
+
+        .function-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .function-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+            position: relative;
+        }
+
+        .function-list li:last-child {
+            padding-bottom: 0px;
+            border-bottom: none;
+        }
+
+        strong {
+            color: #333;
+            font-size: 1em;
+        }
+
+        p {
+            font-size: 1em;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn, .run-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            margin-left: 0px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .btn:hover, .run-btn:hover {
+            background-color: #45a049;
+        }
+
+        .source-code {
+            background-color: #f4f4f4;
+            padding: 10px;
+            padding-top: 15px;
+            padding-bottom: 0px;
+            margin-top: 10px;
+            border-radius: 4px;
+            /*font-family: "Courier New", Courier, monospace;*/
+            font-size: 0.9em;
+            white-space: pre-wrap;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .cta-section button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            width: calc(50% - 10px);
+            margin: 0 5px;
+            box-sizing: border-box;
+        }
+
+        .cta-section button:hover {
+            background-color: #45a049;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            margin-top: 20px;
+        }
+        
+        /* 미디어 쿼리 (반응형 디자인) */
+        @media (max-width: 768px) {
+            .buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            /*
+            .function-section button {
+                width: 100%;
+            }*/
+
+            .cta-section button {
+                width: 90%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>네이티브 연동 샘플</h1>
+    </header>
+
+    <section class="intro-section">
+        <p>네이티브 기본 호출 함수와 연동 함수의 <br />설명과 사용 방법</p>
+    </section>
+
+    <section class="function-section">
+        <h2 style="font-size: 1.5em;">기본 호출 함수</h2>
+        <ul class="function-list">
+            <li>
+                <strong>onReady 함수</strong>
+                <p>웹페이지 로드 후 네이티브 연동 준비 완료 시 호출</p>
+                <div class="buttons" style="display: none;">
+                    <button class="btn" onclick="toggleSource('onReady')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onReady')">실행</button>
+                </div>
+                <pre id="onReady" class="source-code">
+/* onReady 함수 예시 */
+function onReady() {
+    console.log("네이티브 연동 준비 완료");
+    // 스플래시 화면 숨기기
+    Native.ui.hideSplash(500);
+}
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onReady')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>onResume 함수</strong>
+                <p>백그라운드에서 포그라운드로 이동 시 호출</p>
+                <div class="buttons" style="display: none;">
+                    <button class="btn" onclick="toggleSource('onResume')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onResume')">실행</button>
+                </div>
+                <pre id="onResume" class="source-code">
+/* onResume 함수 예시 */
+function onResume() {
+    console.log("포그라운드 진입");
+}
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onResume')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>onRefresh 함수</strong>
+                <p>Pull to refresh 할 경우 호출</p>
+                <div class="buttons" style="display: none;">
+                    <button class="btn" onclick="toggleSource('onRefresh')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onRefresh')">실행</button>
+                </div>
+                <pre id="onRefresh" class="source-code">
+/* onRefresh 함수 예시 */
+function onRefresh() {
+    console.log("새로고침 실행");
+}
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onRefresh')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>onBack 함수</strong>
+                <p>안드로이드 백 버튼 클릭 시 호출</p>
+                <div class="buttons" style="display: none;">
+                    <button class="btn" onclick="toggleSource('onBack')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onBack')">실행</button>
+                </div>
+                <pre id="onBack" class="source-code">
+/* onBack 함수 예시 */
+function onBack() {
+    console.log("백 버튼 액션 (Only Android)");
+    let isLastPage = false;
+    if (isLastPage) {
+        if (confirm('앱을 종료하시겠습니까?')) {
+            // 앱 종료
+            Native.app.finish();
+            return true; // onBack 함수에서 특정 액션 처리 시 백버튼 기본 액션이 함께 동작되지 않도록할 경우, 리턴값 true 설정
+        }
+    }
+    return false; // 리턴값 false 설정일 경우, Android 백버튼 기본 액션 (뒤로가기) 처리 동작
+}
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onBack')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>onPause 함수</strong>
+                <p>포그라운드에서 백그라운드로 이동 시 호출</p>
+                <div class="buttons" style="display: none;">
+                    <button class="btn" onclick="toggleSource('onPause')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onPause')">실행</button>
+                </div>
+                <pre id="onPause" class="source-code">
+/* onBack 함수 예시 */
+function onPause() {
+    console.log("백그라운드 진입");
+}
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onPause')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>onFCM 함수</strong>
+                <p>푸시 알림 수신 함수</p>
+                <div class="buttons" style="display: none;">
+                    <button class="btn" onclick="toggleSource('onFCM')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onFCM')">실행</button>
+                </div>
+                <pre id="onFCM" class="source-code">
+/* onFCM 함수 예시 */
+function onFCM(obj) {
+    let isLoggedIn = true; // 로그인 여부
+    if (isLoggedIn) {
+        if (obj != null) {
+            let msg = `푸시 데이터 수신: ${JSON.stringify(obj)}`;
+            console.log(msg);
+            console.log(`제목: ${obj.title}\n내용: ${obj.body}\n데이터: ${obj.args}`);
+        }
+        return true; // 푸시 데이터 처리할 경우, 반드시 리턴값 true 설정
+    }
+    // 푸시 데이터를 처리하지 않을 경우, 다음 페이지가 로드될 때, 다시 onFCM 함수가 호출된다.
+    return false; // 푸시 데이터를 처리하지 않을 경우, 리턴값 false 설정 (또는 onFCM 함수를 선언하지 않으면 된다.)
+}
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onFCM')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>onURL 함수</strong>
+                <p>외부 앱으로부터의 호출 (스키마 호출) 에 의한 앱 실행 시 스키마 URL 수신 함수</p>
+                <div class="buttons" style="display: none;">
+                    <button class="btn" onclick="toggleSource('onSchemaUrl')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onSchemaUrl')">실행</button>
+                </div>
+                <pre id="onSchemaUrl" class="source-code">
+/* onURL 함수 예시 */
+function onURL(url) {
+    let isLoggedIn = true; // 로그인 여부
+    if (isLoggedIn) {
+        let msg = `스키마 URL 수신: ${url}`;
+        console.log(msg);
+        return true; // 스키마 URL 처리할 경우, 반드시 리턴값 true 설정
+    }
+    // 스키마 URL을 처리하지 않을 경우, 다음 페이지가 로드될 때, 다시 onURL 함수가 호출된다.
+    return false; // 스키마 URL을 처리하지 않을 경우, 리턴값 false 설정 (또는 onURL 함수를 선언하지 않으면 된다.)
+}
+                </pre>
+                <div class="buttons" style="padding-top: 10px;">
+                    <button class="btn" onclick="runFunction('onSchemaUrl')">스키마 호출 테스트</button>
+                </div>
+                <p><!--<button class="run-btn" onclick="runFunction('onURL')">실행</button>--></p>
+            </li>
+        </ul>
+    </section>
+    
+    <section class="function-section">
+        <h2 style="font-size: 1.5em;">화면 설정 관련 함수</h2>
+        <ul class="function-list">
+            <li>
+                <strong>Native.settings.app 함수</strong>
+                <p>앱 설정 (전체 화면 설정, 상태바 글자색 설정) 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onFullScreen')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onFullScreen')">실행</button>
+                </div>
+                <pre id="onFullScreen" class="source-code" style="display: none;">
+/* 전체 화면 설정/해제 (3초 후 해제) 예시 */
+let options = {
+    fillTopArea: true, // 기본값: false (설정 속성이 없거나 속성값이 null일 경우)
+    fillBtmArea: true, // 기본값: false (설정 속성이 없거나 속성값이 null일 경우)
+    useDarkSystemUI: true,  // 기본값: false (설정 속성이 없거나 속성값이 null일 경우 무시)
+};
+Native.settings.app(options);
+setTimeout(() => {
+    options.fillTopArea = false;
+    options.fillBtmArea = false;
+    options.useDarkSystemUI = false;
+    Native.settings.app(options);
+}, 3000);
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onFullScreen')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>Native.settings.web 함수</strong>
+                <p>웹 설정 (주소창 표시 설정, 탭 컨트롤 표시 설정) 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onShowWebControl')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onShowWebControl')">실행</button>
+                </div>
+                <pre id="onShowWebControl" class="source-code" style="display: none;">
+/* 주소창/하단탭 숨기기/보이기 (3초 후 보이기) 예시 */
+let options = {
+    showAdrCtrl: false, // 기본값: true (설정 속성이 없거나 속성값이 null일 경우)
+    showTabCtrl: false  // 기본값: true (설정 속성이 없거나 속성값이 null일 경우)
+};
+Native.settings.web(options);
+setTimeout(() => {
+    options.showAdrCtrl = true;
+    options.showTabCtrl = true;
+    Native.settings.web(options);
+}, 3000);
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onShowWebControl')">실행</button>--></p>
+            </li>
+        </ul>
+    </section>
+
+    <section class="function-section">
+        <h2 style="font-size: 1.5em;">정보 조회 관련 함수</h2>
+        <ul class="function-list">
+            <li>
+                <strong>Native.info.device 함수</strong>
+                <p>디바이스 정보 조회 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onDeviceInfo')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onDeviceInfo')">실행</button>
+                </div>
+                <pre id="onDeviceInfo" class="source-code" style="display: none;">
+/* 디바이스 정보 조회 예시 */
+Native.info.device(function(obj) {
+    console.log(JSON.stringify(obj));
+    alert(`모델명: ${obj.model}\n타입: ${obj.type}\nOS명: ${obj.osName}\nOS버전: ${obj.osVersion}\n화면크기: ${obj.width} X ${obj.height}\n상단 영역 (상태바) 높이: ${obj.insetTop}\n하단 영역 높이: ${obj.insetBtm}`);
+});
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onDeviceInfo')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>Native.info.app 함수</strong>
+                <p>앱 정보 조회 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onAppInfo')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onAppInfo')">실행</button>
+                </div>
+                <pre id="onAppInfo" class="source-code" style="display: none;">
+/* 앱 정보 조회 예시 */
+Native.info.app(function(obj) {
+    console.log(JSON.stringify(obj));
+    alert(`앱 아이디: ${obj.id}\n앱 이름: ${obj.name}\n앱 버전: ${obj.version}\n빌드 버전: ${obj.build}\n앱 해쉬: ${obj.hash}\n푸시 토큰: ${obj.token}`);
+});
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onAppInfo')">실행</button>--></p>
+            </li>
+        </ul>
+    </section>
+
+    <section class="function-section">
+        <h2 style="font-size: 1.5em;">권한 관련 함수</h2>
+        <ul class="function-list">
+            <li>
+                <strong>Native.permission.check 함수</strong>
+                <p>권한 체크 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onCheckPermission')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onCheckPermission')">실행</button>
+                </div>
+                <pre id="onCheckPermission" class="source-code" style="display: none;">
+/* 권한 체크 예시 */
+let options = {
+    permissionType: 'notification', // 푸시 알림 권한 체크
+    request: true // 기본값: false (권한 요청까지 진행 여부)
+};
+Native.permission.check(options, function(hasPermission) {
+    if (hasPermission) {
+        alert('푸시 알림 권한 존재');
+    } else {
+        if (options.request) {
+            alert('푸시 알림 권한이 없거나 거부된 상태');
+            // 푸시 알림 권한 설정 화면으로 이동
+            onPermissionSettings(options.permissionType);
+        } else {
+            alert('푸시 알림 권한 없음');
+        }
+    }
+});
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onCheckPermission')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>Native.permission.moveSettings 함수</strong>
+                <p>권한 설정 화면으로 이동 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onPermissionSettings')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onPermissionSettings')">실행</button>
+                </div>
+                <pre id="onPermissionSettings" class="source-code" style="display: none;">
+/* 권한 설정 화면으로 이동 예시 */
+let permissionType = 'notification'; // undefined 또는 null: 모든 권한, 'notification': 푸시 권한, 'camera': 카메라 권한, 'location': 위치 권한
+Native.permission.moveSettings(permissionType);
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onPermissionSettings')">실행</button>--></p>
+            </li>
+        </ul>
+    </section>
+
+    <section class="function-section">
+        <h2 style="font-size: 1.5em;">Preferences 관련 함수</h2>
+        <ul class="function-list">
+            <li>
+                <strong>Native.preference.saveString / Native.preference.loadString 함수</strong>
+                <p>문자열 저장하기/가져오기 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onString')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onString')">실행</button>
+                </div>
+                <pre id="onString" class="source-code" style="display: none;">
+/* 문자열 저장하기/가져오기 예시 */
+let input = prompt('저장할 문자열을 입력하세요.', '기본 입력 문자열');
+Native.preference.saveString('key', input);
+Native.preference.loadString('key', function(result) {
+    alert(`저장된 문자열: ${result}`);
+});
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onString')">실행</button>--></p>
+            </li>
+        </ul>
+    </section>
+
+    <section class="function-section">
+        <h2 style="font-size: 1.5em;">네이티브 UI 관련 함수</h2>
+        <ul class="function-list">
+            <li>
+                <strong>Native.ui.showSplash / Native.ui.hideSplash 함수</strong>
+                <p>스플래시 보이기/숨기기 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onShowSplash')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onShowSplash')">실행</button>
+                </div>
+                <pre id="onShowSplash" class="source-code" style="display: none;">
+/* 스플래시 보이기/숨기기 (3초 후 숨기기) 예시 */
+Native.ui.showSplash();
+setTimeout(() => {
+    Native.ui.hideSplash(500);
+}, 3000);
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onShowSplash')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>Native.ui.showLoading / Native.ui.hideLoading 함수</strong>
+                <p>로딩 띄우기/숨기기 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onShowLoading')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onShowLoading')">실행</button>
+                </div>
+                <pre id="onShowLoading" class="source-code" style="display: none;">
+/* 로딩 띄우기/숨기기 (3초 후 숨기기) 예시 */
+Native.ui.showLoading();
+setTimeout(() => {
+    Native.ui.hideLoading();
+}, 3000);
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onShowLoading')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>Native.ui.pullToRefresh 함수</strong>
+                <p>Pull to refresh 활성화/비활성화 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onPullToRefresh')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onPullToRefresh')">실행</button>
+                </div>
+                <pre id="onPullToRefresh" class="source-code" style="display: none;">
+/* Pull to refresh 활성화/비활성화 (3초 후 비활성화) 예시 */
+var isEnabled = true;
+Native.ui.pullToRefresh(isEnabled);
+setTimeout(() => {
+    isEnabled = false;
+    Native.ui.pullToRefresh(isEnabled);
+}, 3000);
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onPullToRefresh')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>Native.ui.showAlert 함수</strong>
+                <p>알림창 띄우기 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onShowAlert')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onShowAlert')">실행</button>
+                </div>
+                <pre id="onShowAlert" class="source-code" style="display: none;">
+/* 알림창 띄우기 (제목, 버튼명 변경을 위해) 예시 */
+let options = {
+    title: '알림', // 기본값: 알림
+    msg: '알림창 내용',
+    btnText: '확인' // 기본값: 확인
+};
+Native.ui.showAlert(options, function() {
+    alert('확인 버튼을 클릭했습니다.');
+});
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onShowAlert')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>Native.ui.showConfirm 함수</strong>
+                <p>확인창 띄우기 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onShowConfirm')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onShowConfirm')">실행</button>
+                </div>
+                <pre id="onShowConfirm" class="source-code" style="display: none;">
+/* 확인창 띄우기 (제목, 버튼명 변경을 위해) 예시 */
+let options = {
+    title: '알림', // 기본값: 알림
+    msg: '확인창 내용',
+    btnConfirm: '확인', // 기본값: 확인
+    btnCancel: '취소' // 기본값: 취소
+};
+Native.ui.showConfirm(options, function(idx) {
+    if (idx == 0) {
+        alert('취소 버튼을 클릭했습니다.');
+    } else if (idx == 1) {
+        alert('확인 버튼을 클릭했습니다.');
+    }
+});
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onShowConfirm')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>Native.ui.showPrompt 함수</strong>
+                <p>프롬프트창 띄우기 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onShowPrompt')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onShowPrompt')">실행</button>
+                </div>
+                <pre id="onShowPrompt" class="source-code" style="display: none;">
+/* 프롬프트창 띄우기 (제목, 버튼명 변경을 위해) 예시 */
+let options = {
+    title: '알림', // 기본값: 알림
+    msg: '프롬프트창 내용',
+    text: '기본 입력 문자열',
+    btnConfirm: '확인', // 기본값: 확인
+    btnCancel: '취소' // 기본값: 취소
+};
+Native.ui.showPrompt(options, function(idx, text) {
+    if (idx == 0) {
+        alert('취소 버튼을 클릭했습니다.');
+    } else if (idx == 1) {
+        alert(`입력된 문자열: ${text}`);
+    }
+});
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onShowPrompt')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>Native.ui.showToast 함수</strong>
+                <p>토스트 띄우기 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onShowToast')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onShowToast')">실행</button>
+                </div>
+                <pre id="onShowToast" class="source-code" style="display: none;">
+/* 토스트 띄우기 예시 */
+Native.ui.showToast('토스트 메세지 내용');
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onShowToast')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>Native.ui.hideKeyboard 함수</strong>
+                <p>키보드 내리기 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onHideKeyboard')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onHideKeyboard')">실행</button>
+                </div>
+                <pre id="onHideKeyboard" class="source-code" style="display: none;">
+/* 키보드 내리기 예시 */
+Native.ui.hideKeyboard();
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onHideKeyboard')">실행</button>--></p>
+            </li>
+        </ul>
+    </section>
+
+    <section class="function-section">
+        <h2 style="font-size: 1.5em;">네트워크 통신 관련 함수</h2>
+        <ul class="function-list">
+            <li>
+                <strong>Native.netowrk.request 함수</strong>
+                <p>네트워크 통신 요청 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onAjax')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onAjax')">실행</button>
+                </div>
+                <pre id="onAjax" class="source-code" style="display: none;">
+/* 네트워크 통신 요청 예시 */
+Native.ui.showLoading();
+let options = {
+    url: 'https://dl.dropboxusercontent.com/s/460oyzrb1p59rlk/data.json',
+    method: 'GET', // 기본값: GET
+    headers: {
+        //Authorization: 'Bearer 액세스토큰',
+        key: 'value'
+    },
+    params: {
+        key: 'value'
+    },
+    isJson: false // 기본값: false
+};
+Native.netowrk.request(options, function(isSucc, result) {
+    Native.ui.hideLoading();
+    if (isSucc) {
+        alert(`네트워크 통신 결과: ${result}`);
+    } else {
+        alert('네트워크 통신에 실패했습니다.');
+    }
+});
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onAjax')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>Native.netowrk.download 함수</strong>
+                <p>파일 다운로드 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onFileDownload')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onFileDownload')">실행</button>
+                </div>
+                <pre id="onFileDownload" class="source-code" style="display: none;">
+/* 파일 다운로드 예시 */
+Native.ui.showLoading();
+Native.ui.showToast('파일 다운로드 중입니다.');
+let options = {
+    url: 'https://developer.apple.com/ibeacon/Getting-Started-with-iBeacon.pdf',
+    method: 'GET', // 기본값: GET
+    headers: {
+        //Authorization: 'Bearer 액세스토큰',
+        key: 'value'
+    },
+    params: {
+        key: 'value'
+    },
+    isJson: false, // 기본값: false
+    useTempDir: true, // 기본값: true (자동 삭제되는 임시 폴더 사용 여부)
+    ext: 'pdf' // 기본값: 파일 다운로드 URL의 확장자 (확장자가 없을 경우 선언 필요)
+};
+Native.netowrk.download(options, function(isSucc, filePath) {
+    Native.ui.hideLoading();
+    if (isSucc) {
+        let options = {
+            msg: '다운로드된 파일 경로: ' + filePath,
+            btnConfirm: '공유',
+            btnCancel: '미리보기'
+        };
+        Native.ui.showConfirm(options, function(idx) {
+            if (idx == 0) {
+                // 파일 열기 (미리보기)
+                Native.app.fileViewer(filePath, function() {
+                    // 다운로드된 파일 공유
+                    Native.app.fileShare(filePath);
+                });
+            } else if (idx == 1) {
+                // 다운로드된 파일 공유
+                Native.app.fileShare(filePath);
+            }
+        });
+    } else {
+        alert('다운로드에 실패했습니다.');
+    }
+}, function(percent, length, total) {
+    console.log(`파일 다운로드 진행률: ${percent}% (${length}bytes / ${total}bytes)`);
+});
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onFileDownload')">실행</button>--></p>
+            </li>
+        </ul>
+    </section>
+
+    <section class="function-section">
+        <h2 style="font-size: 1.5em;">앱 관련 함수</h2>
+        <ul class="function-list">
+            <li>
+                <strong>Native.app.webBrowser 함수</strong>
+                <p>외부 웹브라우저 열기 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onWebBrowser')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onWebBrowser')">실행</button>
+                </div>
+                <pre id="onWebBrowser" class="source-code" style="display: none;">
+/* 외부 웹브라우저 열기 예시 */
+Native.app.webBrowser('https://m.daum.net');
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onWebBrowser')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>Native.app.appBrowser 함수</strong>
+                <p>내부 웹브라우저 열기 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onAppBrowser')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onAppBrowser')">실행</button>
+                </div>
+                <pre id="onAppBrowser" class="source-code" style="display: none;">
+/* 내부 웹브라우저 열기 예시 */
+Native.app.appBrowser('https://m.daum.net');
+                </pre>
+                <p><!--<    button class="run-btn" onclick="runFunction('onAppBrowser')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>Native.app.webViewer 함수</strong>
+                <p>서브 웹뷰 열기 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onWebViewer')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onWebViewer')">실행</button>
+                </div>
+                <pre id="onWebViewer" class="source-code" style="display: none;">
+/* 서브 웹뷰 열기 예시 */
+Native.app.webViewer('https://m.daum.net');
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onWebViewer')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>Native.app.vlcPlayer 함수</strong>
+                <p>VLC 플레이어 열기 함수 (RTSP 재생)</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onVLCPlayer')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onVLCPlayer')">실행</button>
+                </div>
+                <pre id="onVLCPlayer" class="source-code" style="display: none;">
+/* VLC 플레이어 열기 예시 */
+Native.app.vlcPlayer('http://streams.videolan.org/streams/mp4/Mr_MrsSmith-h264_aac.mp4');
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onVLCPlayer')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>Native.app.main 함수</strong>
+                <p>메인 화면으로 이동 함수 (서브 화면에서 호출)</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onMain')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onMain')">실행</button>
+                </div>
+                <pre id="onMain" class="source-code" style="display: none;">
+/* 메인 화면으로 이동 예시 */
+let hasUrl = false;
+if (hasUrl) {
+    let url = 'https://m.daum.net';
+    Native.app.main(url); // 메인 화면에서 URL 이동
+} else {
+    Native.app.main();
+}
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onMain')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>Native.app.back / Native.app.close 함수</strong>
+                <p>현재 화면 종료 함수 (서브 화면에서 호출 - 메인 화면일 경우 동작 X)</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onClose')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onClose')">실행</button>
+                </div>
+                <pre id="onClose" class="source-code" style="display: none;">
+/* 현재 화면 종료 예시 */
+Native.app.back(); // 또는 Native.app.close();
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onClose')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>Native.app.fileViewer 함수</strong>
+                <p>파일 경로/URL 열기 함수 (미리보기)</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onFileViewer')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onFileViewer')">실행</button>
+                </div>
+                <pre id="onFileViewer" class="source-code" style="display: none;">
+/* 파일 경로/URL 열기 예시 */
+let url = 'https://developer.apple.com/ibeacon/Getting-Started-with-iBeacon.pdf';
+Native.app.fileViewer(url, function() {
+    console.log('파일 뷰어 종료');
+});
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onFileViewer')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>Native.app.linkShare 함수</strong>
+                <p>링크 URL 공유 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onLinkShare')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onLinkShare')">실행</button>
+                </div>
+                <pre id="onLinkShare" class="source-code" style="display: none;">
+/* 링크 URL 공유 예시 */
+let url = 'https://m.daum.net';
+Native.app.linkShare(url);
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onLinkShare')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>Native.app.launch 함수</strong>
+                <p>앱 실행 또는 스토어 이동 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onLaunch')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onLaunch')">실행</button>
+                </div>
+                <pre id="onLaunch" class="source-code" style="display: none;">
+/* 앱 실행 또는 스토어 이동 예시 */
+var userAgent = navigator.userAgent.toLowerCase();
+let options = {
+    scheme: null,
+    market: null,
+    finish: false // 기본값: false (앱 실행 및 스토어 이동 시 앱 종료 여부)
+};
+if (userAgent.indexOf("android") > -1) {
+    options.scheme = 'com.kakao.talk'; // 패키지명 또는 스키마
+    options.market = 'https://play.google.com/store/apps/details?id=com.kakao.talk';
+} else if (userAgent.indexOf("iphone") > -1 || userAgent.indexOf("ipad") > -1 || userAgent.indexOf("ipod") > -1) {
+    options.scheme = 'kakaotalk';
+    options.market = 'https://apps.apple.com/kr/app/%EC%B9%B4%EC%B9%B4%EC%98%A4%ED%86%A1/id362057947';
+}
+// 앱이 설치된 경우 앱 실행, 미설치된 경우 스토어로 이동
+Native.app.launch(options);
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onLaunch')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>Native.app.orientation 함수</strong>
+                <p>화면 회전 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onOrientation')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onOrientation')">실행</button>
+                </div>
+                <pre id="onOrientation" class="source-code" style="display: none;">
+/* 화면 회전 (5초 후 복원) 예시 */
+var orientation = 'landscape';
+Native.app.orientation(orientation);
+setTimeout(function() {
+    orientation = 'portrait';
+    Native.app.orientation(orientation);
+}, 5000);
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onOrientation')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>Native.app.removeCookies 함수</strong>
+                <p>쿠키 삭제 함수 (모든 쿠키, 도메인 쿠키, 특정 쿠키)</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onRemoveCookies')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onRemoveCookies')">실행</button>
+                </div>
+                <pre id="onRemoveCookies" class="source-code" style="display: none;">
+/* 쿠키 삭제 (모든 쿠키, 도메인 쿠키, 특정 쿠키) 예시 */
+let options = {
+    domain: '.naver.com',
+    key: 'NID_AUT'
+};
+options.domain = null;
+options.key = null;
+Native.app.removeCookies(function() {
+    if (options.key == null) {
+        if (options.domain == null) {
+            alert('웹뷰의 모든 쿠키를 삭제했습니다.');
+        } else {
+            alert('도메인의 모든 쿠키를 삭제했습니다.');
+        }
+    } else {
+        alert(`특정 쿠키의 키값 (${options.key})의 쿠키를 삭제했습니다.`);
+    }
+}, options);
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onRemoveCookies')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>Native.app.refreshToken 함수</strong>
+                <p>푸시 토큰 삭제 및 재발급 함수 (DB 푸시 토큰 업데이트 필요)</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onRefreshToken')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onRefreshToken')">실행</button>
+                </div>
+                <pre id="onRefreshToken" class="source-code" style="display: none;">
+/* 푸시 토큰 삭제 및 재발급 (DB 푸시 토큰 업데이트 필요) 예시 */
+Native.ui.showLoading();
+Native.app.refreshToken(function(token) {
+    Native.ui.hideLoading();
+    alert(`재발급된 푸시 토큰: ${token}`);
+});
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onRefreshToken')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>Native.app.logout 함수</strong>
+                <p>로그아웃 함수 (상태바 푸시 알림 삭제, 푸시 토큰 삭제 및 재발급)</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onLogout')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onLogout')">실행</button>
+                </div>
+                <pre id="onLogout" class="source-code" style="display: none;">
+/* 로그아웃 함수 (상태바 푸시 알림 삭제, 푸시 토큰 삭제 및 재발급) 예시 */
+Native.ui.showLoading();
+// 로그아웃 시 푸시를 받지 않도록 하기 위한 처리 (재로그인 시 DB 푸시 토큰 업데이트 필요)
+Native.app.logout(function(token) {
+    Native.ui.hideLoading();
+    alert(`재발급된 푸시 토큰: ${token}`);
+});
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onLogout')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>Native.app.finish 함수</strong>
+                <p>앱 종료 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onFinish')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onFinish')">실행</button>
+                </div>
+                <pre id="onFinish" class="source-code" style="display: none;">
+/* 앱 종료 예시 */
+Native.app.finish();
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onFinish')">실행</button>--></p>
+            </li>
+        </ul>
+    </section>
+
+    <section class="function-section">
+        <h2 style="font-size: 1.5em;">바코드 관련 함수</h2>
+        <ul class="function-list">
+            <li>
+                <strong>Native.barcode.scanner 함수</strong>
+                <p>바코드 스캔 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onBarcodeScanner')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onBarcodeScanner')">실행</button>
+                </div>
+                <pre id="onBarcodeScanner" class="source-code" style="display: none;">
+/* 바코드 스캔 예시 */
+let options = {
+    permissionType: 'camera',
+    request: true // 기본값: false
+};
+Native.permission.check(options, function(hasPermission) {
+    if (hasPermission) {
+        console.log('카메라 권한 존재');
+        let options = {
+            msg: '바코드를 스캔하시겠습니까?',
+            btnConfirm: '범용 바코드',
+            btnCancel: 'QR 바코드'
+        };
+        Native.ui.showConfirm(options, function(idx) {
+            if (idx == 0) {
+                // QR 바코드 스캔 및 결과값 가져오기
+                Native.barcode.scanner(function(result) {
+                    alert(`QR 바코드 스캔 결과: ${result}`);
+                }, {
+                    filterTypes: ['QR_CODE'/*, 'CODE_128'*/]
+                });
+            } else if (idx == 1) {
+                // 범용 바코드 스캔 및 결과값 가져오기
+                Native.barcode.scanner(function(result) {
+                    alert(`범용 바코드 스캔 결과: ${result}`);
+                });
+            }
+        });
+    } else {
+        if (options.request) {
+            alert('카메라 권한이 없거나 거부된 상태 (설정 화면으로 이동)');
+            onPermissionSettings(options.permissionType);
+        } else {
+            alert('카메라 권한 없음');
+        }
+    }
+});
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onBarcodeScanner')">실행</button>--></p>
+            </li>
+        </ul>
+    </section>
+
+    <section class="function-section">
+        <h2 style="font-size: 1.5em;">위치 관련 함수</h2>
+        <ul class="function-list">
+            <li>
+                <strong>Native.location.isGPSEnabled 함수</strong>
+                <p>GPS ON/OFF 체크 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onGPSEnabled')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onGPSEnabled')">실행</button>
+                </div>
+                <pre id="onGPSEnabled" class="source-code" style="display: none;">
+/* GPS ON/OFF 체크 예시 */
+Native.location.isGPSEnabled(function(isEnabled) {
+    if (!!isEnabled) {
+        alert('GPS가 켜져있습니다.');
+    } else {
+        alert('GPS가 꺼져있습니다.');
+    }
+});
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onGPSEnabled')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>Native.location.moveGPSSettings 함수</strong>
+                <p>GPS 설정 화면으로 이동 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onGPSSettings')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onGPSSettings')">실행</button>
+                </div>
+                <pre id="onGPSSettings" class="source-code" style="display: none;">
+/* 앱 정보 조회 예시 */
+Native.location.moveGPSSettings(function() {
+    console.log('설정 화면 종료 후 처리');
+});
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onGPSSettings')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>Native.location.myLocation 함수</strong>
+                <p>내 위치 정보 조회 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onMyLocation')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onMyLocation')">실행</button>
+                </div>
+                <pre id="onMyLocation" class="source-code" style="display: none;">
+/* 내 위치 정보 조회 예시 */
+let options = {
+    permissionType: 'location',
+    request: true // 기본값: false
+};
+Native.permission.check(options, function(hasPermission) {
+    if (hasPermission) {
+        console.log('위치 권한 존재');
+        options = {
+            repeat: true // 지속적으로 내 위치 정보 조회 여부 (기본값: false) - true일 경우, 위치 정보 조회 종료 함수 호출 필요
+        };
+        Native.location.myLocation(function(obj) {
+            if (!!obj) {
+                console.log(JSON.stringify(obj));
+                alert(`위도: ${obj.latitude}\n경도: ${obj.longitude}\n고도: ${obj.altitude}m\n방위: ${obj.heading}°\n속도: ${obj.speed}m/s\n갱신시간: ${obj.time}`);
+            } else {
+                alert('내 위치 정보 조회에 실패했습니다.');
+            }
+        }, options);
+    } else {
+        if (options.request) {
+            alert('위치 권한이 없거나 거부된 상태 (설정 화면으로 이동)');
+            onPermissionSettings(options.permissionType);
+        } else {
+            alert('위치 권한 없음');
+        }
+    }
+});
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onMyLocation')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>Native.location.calculate 함수</strong>
+                <p>GPS 두 좌표 간 방위/거리 계산 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onLocationCalculate')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onLocationCalculate')">실행</button>
+                </div>
+                <pre id="onLocationCalculate" class="source-code" style="display: none;">
+/* GPS 두 좌표 간 방위/거리 계산 예시 */
+let options = {
+    permissionType: 'location',
+    request: true // 기본값: false
+};
+Native.permission.check(options, function(hasPermission) {
+    if (hasPermission) {
+        console.log('위치 권한 존재');
+        options = {
+            repeat: false // 기본값: false
+        };
+        Native.location.myLocation(function(obj) {
+            if (!!obj) {
+                console.log(JSON.stringify(obj));
+                console.log(`위도: ${obj.latitude}\n경도: ${obj.longitude}\n고도: ${obj.altitude}m\n방위: ${obj.heading}°\n속도: ${obj.speed}m/s\n갱신시간: ${obj.time}`);
+                let loc1 = {
+                    latitude: obj.latitude,
+                    longitude: obj.longitude
+                }
+                let loc2 = {
+                    latitude: '37.57861',   // 경복궁 위도
+                    longitude: '126.97722'  // 경복궁 경도
+                }
+                // 두 위치 간 방위/거리 계산 (현재 위치, 경복궁)
+                Native.location.calculate(loc1, loc2, function(bearing, distance) {
+                    if (bearing != null && distance != null) {
+                        alert(`현재 위치에서 경복궁까지의 방위/거리: ${bearing}°/${distance}m`);
+                    } else {
+                        alert('현재 위치에서 경복궁까지의 방위/거리 계산에 실패했습니다.');
+                    }
+                });
+            } else {
+                alert('내 위치 정보 조회에 실패했습니다.');
+            }
+        }, options);
+    } else {
+        if (options.request) {
+            alert('위치 권한이 없거나 거부된 상태 (설정 화면으로 이동)');
+            onPermissionSettings(options.permissionType);
+        } else {
+            alert('위치 권한 없음');
+        }
+    }
+});
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onLocationCalculate')">실행</button>--></p>
+            </li>
+            <li style="padding-top: 30px;">
+                <strong>Native.location.finish 함수</strong>
+                <p>위치 정보 조회 종료 함수</p>
+                <div class="buttons">
+                    <button class="btn" onclick="toggleSource('onLocationFinish')">소스 보기</button>
+                    <button class="btn" onclick="runFunction('onLocationFinish')">실행</button>
+                </div>
+                <pre id="onLocationFinish" class="source-code" style="display: none;">
+/* 위치 정보 조회 종료 예시 */
+// 지속적인 위치 정보 조회 종료 - 지속적으로 위치 정보를 가져올 경우, 위치 사용 종료 시 반드시 호출 필요
+Native.location.finish();
+                </pre>
+                <p><!--<button class="run-btn" onclick="runFunction('onLocationFinish')">실행</button>--></p>
+            </li>
+        </ul>
+    </section>
+
+    <section class="cta-section" style="padding-bottom: 20px">
+        <button onclick="history.back();">뒤로 가기</button>
+    </section>
+
+    <!--
+    <footer>
+        <p>&copy; 2024 Hybrid App Solutions. All rights reserved.</p>
+    </footer>
+    -->
+
+    <script type='text/javascript' src='../js/libs/jquery-3.6.0.min.js' charset='utf-8'></script>
+    <!--
+    <script type='text/javascript' src='../js/common/common.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/native/native-api.js' charset='utf-8'></script>
+    -->
+    <script type='text/javascript' src='../js/native-example.js' charset='utf-8'></script>
+    <script>
+        // 소스 보기 토글 함수
+        function toggleSource(id) {
+            const sourceCode = document.getElementById(id);
+            if (sourceCode.style.display === 'none') {
+                sourceCode.style.display = 'block';
+            } else {
+                sourceCode.style.display = 'none';
+            }
+        }
+
+        // 자바스크립트 함수 실행
+        function runFunction(id) {
+            if (/Native/i.test(navigator.userAgent)) {
+            } else {
+                alert('하이브리드 솔루션이 적용된 앱에서 실행해 주세요.');
+                return;
+            }
+            switch (id) {
+                case 'onCheckPermission':
+                    onCheckPermission('notification');
+                    break;
+                default:
+                    try {
+                        eval(`${id}();`);
+                    } catch (error) {
+                        console.log(`Error: ${error.message}`);
+                    }
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>
