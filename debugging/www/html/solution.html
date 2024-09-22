@@ -181,7 +181,7 @@
         $(function() {
             if (/Native/i.test(navigator.userAgent)) {
             } else {
-                if (history.referrer) {
+                if (history.length > 1) {
                 } else {
                     $('.cta-section > button').eq(0).hide();
                 }

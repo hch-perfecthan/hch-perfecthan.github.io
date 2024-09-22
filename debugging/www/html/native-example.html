@@ -1191,7 +1191,7 @@ Native.location.finish();
             } else {
                 $('.buttons').hide();
                 $('.source-code').show();
-                if (history.referrer) {
+                if (history.length > 1) {
                 } else {
                     $('.cta-section > button').eq(0).hide();
                 }
