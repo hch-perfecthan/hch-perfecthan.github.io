@@ -20,8 +20,8 @@ function onReady() {
             document.body.style.color = '#fff';
         } else {
             document.body.classList.remove('dark-mode');
-            document.body.style.backgroundColor = '#fff';
-            document.body.style.color = '#000';
+            document.body.style.backgroundColor = '#f9f9f9';
+            document.body.style.color = '#333';
         }
         // 스플래시 화면 숨기기
         Native.ui.hideSplash(500);
