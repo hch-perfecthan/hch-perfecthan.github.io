@@ -12,7 +12,7 @@ function onReady() {
     console.log('네이티브 연동 준비 완료');//alert('네이티브 연동 준비 완료');
     // 디바이스 정보 조회 (콜백 방식)
     Native.info.device(function(obj) {
-        let obj = obj ?? {}
+        obj = obj ?? {}
         if (obj.darkMode ?? false) {
             // 다크모드 스타일 적용
             document.body.classList.add('dark-mode');
