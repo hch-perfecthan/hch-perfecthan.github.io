@@ -10,8 +10,22 @@
 
 function onReady() {
     console.log('네이티브 연동 준비 완료');//alert('네이티브 연동 준비 완료');
-    // 스플래시 화면 숨기기
-    Native.ui.hideSplash(500);
+    // 디바이스 정보 조회 (콜백 방식)
+    Native.info.device(function(obj) {
+        let obj = obj ?? {}
+        if (obj.darkMode ?? false) {
+            // 다크모드 스타일 적용
+            document.body.classList.add('dark-mode');
+            document.body.style.backgroundColor = '#000';
+            document.body.style.color = '#fff';
+        } else {
+            document.body.classList.remove('dark-mode');
+            document.body.style.backgroundColor = '#fff';
+            document.body.style.color = '#000';
+        }
+        // 스플래시 화면 숨기기
+        Native.ui.hideSplash(500);
+    });
 }
 
 function onResume() {
@@ -128,7 +142,7 @@ async function onDeviceInfo() {
     /* 디바이스 정보 가져오기 (콜백 방식)
     Native.info.device(function(obj) {
         console.log(JSON.stringify(obj));//alert(JSON.stringify(obj));
-        alert(`모델명: ${obj.model}\n타입: ${obj.type}\nOS명: ${obj.osName}\nOS버전: ${obj.osVersion}\n화면크기: ${obj.width} X ${obj.height}\n상단 영역 높이 (상태바 높이): ${obj.insetTop}\n하단 영역 높이: ${obj.insetBtm}`);
+        alert(`모델명: ${obj.model}\n타입: ${obj.type}\nOS명: ${obj.osName}\nOS버전: ${obj.osVersion}\n화면크기: ${obj.width} X ${obj.height}\n상단 영역 높이 (상태바 높이): ${obj.insetTop}\n하단 영역 높이: ${obj.insetBtm}\n다크모드 여부: ${obj.darkMode}`);
     });*/
     // 디바이스 정보 가져오기 (동기 방식)
     let obj = await new Promise((resolve) => {
@@ -137,7 +151,7 @@ async function onDeviceInfo() {
         });
     });
     console.log(JSON.stringify(obj));//alert(JSON.stringify(obj));
-    alert(`모델명: ${obj.model}\n타입: ${obj.type}\nOS명: ${obj.osName}\nOS버전: ${obj.osVersion}\n화면크기: ${obj.width} X ${obj.height}\n상단 영역 (상태바) 높이: ${obj.insetTop}\n하단 영역 높이: ${obj.insetBtm}`);
+    alert(`모델명: ${obj.model}\n타입: ${obj.type}\nOS명: ${obj.osName}\nOS버전: ${obj.osVersion}\n화면크기: ${obj.width} X ${obj.height}\n상단 영역 (상태바) 높이: ${obj.insetTop}\n하단 영역 높이: ${obj.insetBtm}\n다크모드 여부: ${obj.darkMode}`);
 }
 
 async function onAppInfo() {

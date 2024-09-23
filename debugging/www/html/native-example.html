@@ -13,6 +13,12 @@
             color: #333;
         }
 
+        /* 다크모드 스타일 */
+        body.dark-mode {
+            background-color: #121212;
+            color: #f9f9f9;
+        }
+
         header {
             /*background-color: #4CAF50;*/
             color: #4CAF50;
@@ -50,6 +56,12 @@
             /* overflow-y: auto; 화면이 작아질 때 스크롤 가능하게 함 */
         }
 
+        /* 다크모드일 때 카드 스타일 */
+        body.dark-mode .function-section {
+            background-color: #1e1e1e;
+            box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+        }
+
         h2 {
             color: #4CAF50;
             margin-top: 20px;
@@ -74,7 +86,7 @@
         }
 
         strong {
-            color: #333;
+            /*color: #333;*/
             font-size: 1em;
         }
 
@@ -114,6 +126,14 @@
             /*font-family: "Courier New", Courier, monospace;*/
             font-size: 0.9em;
             white-space: pre-wrap;
+        }
+
+        /* 다크모드일 때 pre 태그 스타일 */
+        body.dark-mode pre {
+            background-color: #1e1e1e; /* 어두운 배경 */
+            color: #f9f9f9; /* 밝은 텍스트 */
+            border: 1px solid #333; /* 테두리 */
+            border-radius: 4px; /* 약간 둥근 모서리 */
         }
 
         .cta-section {
@@ -383,7 +403,7 @@ setTimeout(() => {
 /* 디바이스 정보 조회 예시 */
 Native.info.device(function(obj) {
     console.log(JSON.stringify(obj));
-    alert(`모델명: ${obj.model}\n타입: ${obj.type}\nOS명: ${obj.osName}\nOS버전: ${obj.osVersion}\n화면크기: ${obj.width} X ${obj.height}\n상단 영역 (상태바) 높이: ${obj.insetTop}\n하단 영역 높이: ${obj.insetBtm}`);
+    alert(`모델명: ${obj.model}\n타입: ${obj.type}\nOS명: ${obj.osName}\nOS버전: ${obj.osVersion}\n화면크기: ${obj.width} X ${obj.height}\n상단 영역 (상태바) 높이: ${obj.insetTop}\n하단 영역 높이: ${obj.insetBtm}\n다크모드 여부: ${obj.darkMode}`);
 });
                 </pre>
                 <p><!--<button class="run-btn" onclick="runFunction('onDeviceInfo')">실행</button>--></p>
