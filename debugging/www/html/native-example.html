@@ -1236,9 +1236,6 @@ Native.location.finish();
                 return;
             }
             switch (id) {
-                case 'onCheckPermission':
-                    onCheckPermission('notification');
-                    break;
                 default:
                     try {
                         eval(`${id}();`);
