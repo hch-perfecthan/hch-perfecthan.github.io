@@ -570,7 +570,8 @@ function onMyLocation() {
             Native.location.myLocation(function(obj) {
                 if (!!obj) {
                     console.log(JSON.stringify(obj));//alert(JSON.stringify(obj));
-                    alert(`위도: ${obj.latitude}\n경도: ${obj.longitude}\n고도: ${obj.altitude}m\n방위: ${obj.heading}°\n속도: ${obj.speed}m/s\n갱신시간: ${obj.time}`);
+                    // 고도, 방위, 속도 값이 -1일 경우는 측정 불가 (장치가 정지해 있거나 GPS 신호가 불안정한 경우 발생)
+                    alert(`위도: ${obj.latitude}\n경도: ${obj.longitude}\n고도: ${obj.altitude}m\n방위(장치가 실제 이동하는 방향): ${obj.direction}°\n속도: ${obj.speed}m/s\n갱신시간: ${obj.time}`);
                 } else {
                     alert('내 위치 정보 조회에 실패했습니다.');
                 }
@@ -601,7 +602,7 @@ function onLocationCalculate() {
             Native.location.myLocation(function(obj) {
                 if (!!obj) {
                     console.log(JSON.stringify(obj));//alert(JSON.stringify(obj));
-                    console.log(`위도: ${obj.latitude}\n경도: ${obj.longitude}\n고도: ${obj.altitude}m\n방위: ${obj.heading}°\n속도: ${obj.speed}m/s\n갱신시간: ${obj.time}`);
+                    console.log(`위도: ${obj.latitude}\n경도: ${obj.longitude}\n고도: ${obj.altitude}m\n방위(장치가 실제 이동하는 방향): ${obj.direction}°\n속도: ${obj.speed}m/s\n갱신시간: ${obj.time}`);
                     let loc1 = {
                         latitude: obj.latitude,
                         longitude: obj.longitude
