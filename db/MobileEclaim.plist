@@ -27,7 +27,7 @@
 				<key>bundle-identifier</key>
 				<string>com.mdongbu.mobileeclaim</string>
 				<key>bundle-version</key>
-				<string>3.2.0</string>
+				<string>3.2.1</string>
 				<key>kind</key>
 				<string>software</string>
 				<key>title</key>
